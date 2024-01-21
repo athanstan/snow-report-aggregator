@@ -96,6 +96,7 @@ class SnowReportCrawlerObserver extends CrawlObserver
                     'color' => $value['color'],
                     'open_lifts' => $value['open_lifts'],
                     'total_lifts' => $value['total_lifts'],
+                    'updated_at' => now(),
                 ]
             );
         }

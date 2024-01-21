@@ -15,5 +15,6 @@ class SnowReport extends Model
         'color',
         'open_lifts',
         'total_lifts',
+        'updated_at'
     ];
 }

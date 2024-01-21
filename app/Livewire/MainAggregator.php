@@ -23,6 +23,7 @@ class MainAggregator extends Component
 
         if ($this->snowReports->isEmpty() || $this->snowReports->first()->updated_at->diffInHours(now()) > 1) {
             $this->fetchContent();
+            cache()->forget('snowReports');
         }
     }
 
@@ -31,6 +32,7 @@ class MainAggregator extends Component
         Crawler::create()
             ->setCrawlObserver(new SnowReportCrawlerObserver())
             ->setMaximumDepth(0)
+            ->setTotalCrawlLimit(1)
             ->startCrawling('https://snowreport.gr');
 
         $this->dispatch('refresh')->self();
