@@ -18,7 +18,9 @@ class MainAggregator extends Component
     public function mount()
     {
         $this->snowReports = Cache::remember('snowReports', 3600, function () {
-            return SnowReport::get();
+            return SnowReport::query()
+                ->orderBy('open_lifts', 'desc')
+                ->get();
         });
 
         if ($this->snowReports->isEmpty() || $this->snowReports->first()->updated_at->diffInHours(now()) > 1) {

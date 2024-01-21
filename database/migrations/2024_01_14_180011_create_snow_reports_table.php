@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('link');
-            $table->string('color');
+            $table->string('status')->default('default');
             $table->integer('open_lifts')->nullable();
             $table->integer('total_lifts')->nullable();
             $table->timestamps();

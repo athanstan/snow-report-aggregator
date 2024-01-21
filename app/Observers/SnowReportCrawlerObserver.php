@@ -2,17 +2,14 @@
 
 namespace App\Observers;
 
+use App\Enums\SnowReportStatus;
 use App\Models\SnowReport;
-use DOMDocument;
-use DOMXPath;
-use Exception;
 use Spatie\Crawler\CrawlObservers\CrawlObserver;
 use Psr\Http\Message\UriInterface;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use InvalidArgumentException;
 use Symfony\Component\DomCrawler\Crawler;
 
 class SnowReportCrawlerObserver extends CrawlObserver
@@ -41,9 +38,6 @@ class SnowReportCrawlerObserver extends CrawlObserver
         ?UriInterface $foundOnUrl = null,
         ?string $linkText = null,
     ): void {
-        $open_lifts = null;
-        $total_lifts = null;
-
         // Get the response body
         $content = (string) $response->getBody();
 
@@ -89,11 +83,17 @@ class SnowReportCrawlerObserver extends CrawlObserver
 
         foreach ($linkData as $key => $value) {
 
+            $status = SnowReportStatus::tryFrom($value['color']);
+
+            if ($status === null) {
+                $status = SnowReportStatus::MAINTENANCE;
+            }
+
             SnowReport::updateOrCreate(
                 ['name' => $value['name']],
                 [
                     'link' => $value['link'],
-                    'color' => $value['color'],
+                    'status' => $status->toStatusString(),
                     'open_lifts' => $value['open_lifts'],
                     'total_lifts' => $value['total_lifts'],
                     'updated_at' => now(),

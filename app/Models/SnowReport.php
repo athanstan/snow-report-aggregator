@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\SnowReportStatusString;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,9 +13,13 @@ class SnowReport extends Model
     protected $fillable = [
         'name',
         'link',
-        'color',
+        'status',
         'open_lifts',
         'total_lifts',
         'updated_at'
+    ];
+
+    protected $casts = [
+        'status' => SnowReportStatusString::class,
     ];
 }
