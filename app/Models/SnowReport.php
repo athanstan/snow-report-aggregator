@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\SnowReportStatusString;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SnowReport extends Model
 {
@@ -22,4 +23,14 @@ class SnowReport extends Model
     protected $casts = [
         'status' => SnowReportStatusString::class,
     ];
+
+    public function slopes(): HasMany
+    {
+        return $this->hasMany(Slope::class);
+    }
+
+    public function lifts(): HasMany
+    {
+        return $this->hasMany(Lift::class);
+    }
 }

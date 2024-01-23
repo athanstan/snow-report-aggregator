@@ -4,12 +4,12 @@ namespace App\Observers;
 
 use App\Enums\SnowReportStatus;
 use App\Models\SnowReport;
-use Spatie\Crawler\CrawlObservers\CrawlObserver;
-use Psr\Http\Message\UriInterface;
-use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Psr\Http\Message\UriInterface;
+use Psr\Http\Message\ResponseInterface;
+use Spatie\Crawler\CrawlObservers\CrawlObserver;
 use Symfony\Component\DomCrawler\Crawler;
 
 class SnowReportCrawlerObserver extends CrawlObserver
@@ -20,6 +20,7 @@ class SnowReportCrawlerObserver extends CrawlObserver
     {
         $this->content = null;
     }
+
     /**
      * Called when the crawler will crawl the url.
      */
