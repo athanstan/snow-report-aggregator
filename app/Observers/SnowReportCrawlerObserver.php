@@ -45,7 +45,11 @@ class SnowReportCrawlerObserver extends CrawlObserver
         // convert encoding
         $content1 = htmlspecialchars_decode($content, ENT_QUOTES);
         $content1 = mb_convert_encoding($content1, "UTF-8", "ISO-8859-7");
-        $content2 = Str::between($content1, '<li class="has-sub"><a href="http://www.snowreport.gr">', '<li class="has-sub"><a href="http://www.snowreport.gr/trips" target="blank">');
+        $content2 = Str::between(
+            $content1,
+            '<li class="has-sub"><a href="http://www.snowreport.gr">',
+            '<li class="has-sub"><a href="http://www.snowreport.gr/trips" target="blank">'
+        );
         $content3 = preg_replace('/\s+/', ' ', $content2);
         $content4 = Str::after($content3, 'Χιονοδρομικά </a>');
         $content5 = Str::before($content4, '</li></ul>');
@@ -61,7 +65,9 @@ class SnowReportCrawlerObserver extends CrawlObserver
 
         $crawler->filter('a')->each(function (Crawler $node, $i) use (&$linkData) {
             $href = $node->attr('href');
-            $color = $node->filter('font')->count() ? $node->filter('font')->attr('color') : 'default';
+            $color = $node->filter('font')->count()
+                ? $node->filter('font')->attr('color')
+                : 'default';
             $text = trim($node->text());
 
             if (preg_match('/(\d+)\/(\d+)$/', $text, $matches)) {
@@ -71,36 +77,26 @@ class SnowReportCrawlerObserver extends CrawlObserver
 
             // Remove the lift information from the text
             $text = trim(preg_replace('/\d+\/\d+$/', '', $text));
+            // Remove the parenthesis information
+            $name = trim(preg_replace('/\s*\(\d+\)$/', '', $text));
 
-            // Add the data to the array
-            $linkData[] = [
-                'name' => $text,
-                'link' => $href,
-                'color' => $color,
-                'open_lifts' => $open_lifts ?? null,
-                'total_lifts' => $total_lifts ?? null,
-            ];
-        });
-
-        foreach ($linkData as $key => $value) {
-
-            $status = SnowReportStatus::tryFrom($value['color']);
+            $status = SnowReportStatus::tryFrom($color);
 
             if ($status === null) {
                 $status = SnowReportStatus::MAINTENANCE;
             }
 
             SnowReport::updateOrCreate(
-                ['name' => $value['name']],
+                ['name' => $name],
                 [
-                    'link' => $value['link'],
+                    'link' => $href,
                     'status' => $status->toStatusString(),
-                    'open_lifts' => $value['open_lifts'],
-                    'total_lifts' => $value['total_lifts'],
+                    'open_lifts' => $open_lifts ?? null,
+                    'total_lifts' => $total_lifts ?? null,
                     'updated_at' => now(),
                 ]
             );
-        }
+        });
     }
 
     /**
