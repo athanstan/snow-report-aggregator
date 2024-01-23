@@ -33,10 +33,10 @@
         <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
             <div class="flex items-end justify-center min-h-full p-4 text-center sm:items-center sm:p-0">
                 <div x-transition.opacity @click.outside="open = false"
-                    class="relative px-4 pt-5 pb-4 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+                    class="relative px-4 pt-5 pb-4 overflow-hidden text-left transition-all transform bg-gray-900 rounded-lg shadow-xl sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                     <div>
                         <div class="mt-2 text-center sm:mt-2">
-                            <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Περισσότερες
+                            <h3 class="text-base font-semibold leading-6 text-gray-100" id="modal-title">Περισσότερες
                                 Πληροφορίες</h3>
 
                             <div wire:loading wire:target="selectedSnowReport">
@@ -46,62 +46,11 @@
                             <div class="grid grid-cols-1 mt-2">
 
                                 <div class="flex flex-col mb-12 space-y-2">
-                                    <div>
-                                        <h2 class="text-lg font-semibold">Αναβατήρες</h2>
-                                    </div>
-                                    <ul role="list" class="space-y-6">
-                                        @forelse ($selectedSnowReport?->lifts ?? [] as $lift)
-                                            <li class="relative flex gap-x-4">
-                                                @unless ($loop->last)
-                                                    <div class="absolute top-0 left-0 flex justify-center w-6 -bottom-6">
-                                                        <div class="w-px bg-gray-200"></div>
-                                                    </div>
-                                                @endunless
-                                                <div
-                                                    class="relative flex items-center justify-center flex-none w-6 h-6 bg-white">
-                                                    <div
-                                                        class="h-1.5 w-1.5 rounded-full {{ $lift->status->toTailwindClass() }} ring-green-400/20 ring-1 ring-inset ring-gray-300">
-                                                    </div>
-                                                </div>
-                                                <p class="flex-auto py-0.5 text-xs leading-5 text-gray-500"><span
-                                                        class="font-medium text-gray-900">{{ $lift->name }}</span></p>
-                                                <time datetime="2023-01-23T10:32"
-                                                    class="flex-none py-0.5 text-xs leading-5 text-gray-500">{{ $lift->updated_at->diffForHumans() }}</time>
-                                            </li>
-                                        @empty
-                                            <li>No lifts found</li>
-                                        @endforelse
-                                    </ul>
+                                    <x-ui.lists.activity-list :infoList="$selectedSnowReport->lifts ?? null" title="Αναβατήρες" />
                                 </div>
 
                                 <div class="flex flex-col space-y-2">
-                                    <div>
-                                        <h2 class="text-lg font-semibold">Πίστες</h2>
-                                    </div>
-                                    <ul role="list" class="space-y-6">
-                                        @forelse ($selectedSnowReport?->slopes ?? [] as $slope)
-                                            <li class="relative flex gap-x-4">
-                                                @unless ($loop->last)
-                                                    <div class="absolute top-0 left-0 flex justify-center w-6 -bottom-6">
-                                                        <div class="w-px bg-gray-200"></div>
-                                                    </div>
-                                                @endunless
-                                                <div
-                                                    class="relative flex items-center justify-center flex-none w-6 h-6 bg-white">
-                                                    <div
-                                                        class="h-1.5 w-1.5 rounded-full {{ $slope->status->toTailwindClass() }} ring-1 ring-gray-300">
-                                                    </div>
-                                                </div>
-                                                <p class="flex-auto py-0.5 text-xs leading-5 text-gray-500"><span
-                                                        class="font-medium text-gray-900">{{ $slope->name }}</span>
-                                                </p>
-                                                <time datetime="2023-01-23T10:32"
-                                                    class="flex-none py-0.5 text-xs leading-5 text-gray-500">{{ $slope->updated_at->diffForHumans() }}</time>
-                                            </li>
-                                        @empty
-                                            <li>Δεν βρέθηκαν Πίστες</li>
-                                        @endforelse
-                                    </ul>
+                                    <x-ui.lists.activity-list :infoList="$selectedSnowReport->slopes ?? null" title="Πίστες" />
                                 </div>
 
                             </div>

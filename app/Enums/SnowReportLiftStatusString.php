@@ -16,4 +16,13 @@ enum SnowReportLiftStatusString: string
             self::IDLE => 'bg-orange-400',
         };
     }
+
+    public function getParentBackgroundClass(): string
+    {
+        return match ($this) {
+            self::OPEN => 'bg-green-100',
+            self::CLOSED => 'bg-red-100',
+            self::IDLE => 'bg-orange-100',
+        };
+    }
 }
