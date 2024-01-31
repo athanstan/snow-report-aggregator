@@ -19,7 +19,7 @@
 
 <body class="antialiased" id="my-canvas">
 
-    <div class="bg-sky-300/20">
+    <div class="bg-gray-900">
         <div class="relative px-6 isolate pt-14 lg:px-8">
             <div class="absolute inset-x-0 overflow-hidden -top-40 -z-10 transform-gpu blur-3xl sm:-top-80"
                 aria-hidden="true">
@@ -29,8 +29,8 @@
             </div>
             <div class="max-w-2xl py-12 mx-auto">
                 <div class="text-center">
-                    <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Snow Report Aggregator</h1>
-                    <p class="mt-6 text-lg font-semibold leading-8 text-slate-500/70">Βρείτε γρήγορα τον επόμενο
+                    <h1 class="text-4xl font-bold tracking-tight text-white sm:text-6xl">Snowgr</h1>
+                    <p class="mt-6 text-lg font-semibold leading-8 text-gray-200">Βρείτε γρήγορα τον επόμενο
                         προορισμό
                         σας για
                         χιονοπόλεμο!</p>

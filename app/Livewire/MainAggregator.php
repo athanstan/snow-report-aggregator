@@ -14,6 +14,7 @@ class MainAggregator extends Component
 {
     public $snowReports;
     public SnowReport $selectedSnowReport;
+    public bool $open = false;
 
     #[On('refresh')]
     public function mount()
@@ -41,6 +42,11 @@ class MainAggregator extends Component
         $this->dispatch('refresh')->self();
     }
 
+    public function resetSelectedSnowReport()
+    {
+        $this->reset('selectedSnowReport');
+    }
+
     public function loadSnowReportInfo(SnowReport $snowReport)
     {
         $this->selectedSnowReport = Cache::remember(
@@ -49,7 +55,14 @@ class MainAggregator extends Component
             function () use ($snowReport) {
                 return SnowReport::query()
                     ->where('id', $snowReport->id)
-                    ->with('lifts', 'slopes')
+                    ->with([
+                        'lifts' => function ($query) {
+                            $query->orderBy('status', 'desc');
+                        },
+                        'slopes' => function ($query) {
+                            $query->orderBy('status', 'desc');
+                        }
+                    ])
                     ->first();
             }
         );
