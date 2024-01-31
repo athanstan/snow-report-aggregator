@@ -25,7 +25,7 @@
                     <span class="font-medium">{{ $item->name }}</span>
                 </p>
                 <time datetime="2023-01-23T10:32"
-                    class="flex-none py-0.5 text-xs leading-5 text-white">{{ $item->updated_at->diffForHumans() }}</time>
+                    class="flex-none py-0.5 text-xs leading-5 text-white">{{ $item->updated_at->diffForHumans(['short' => true]) }}</time>
             </li>
         @empty
             <li>Δεν βρέθηκαν αναβατήρες</li>

@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string('status')->default('default');
             $table->integer('open_lifts')->nullable();
             $table->integer('total_lifts')->nullable();
+            $table->integer('base_snow')->nullable();
+            $table->integer('mid_snow')->nullable();
+            $table->integer('top_snow')->nullable();
             $table->timestamps();
         });
     }

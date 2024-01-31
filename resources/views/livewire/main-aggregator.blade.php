@@ -55,8 +55,36 @@
                             </div>
 
                             <div wire:loading.remove class="grid grid-cols-1 mt-2">
+
+                                <div class="grid grid-cols-3 gap-2 mt-8">
+                                    <div class="flex flex-col space-y-2">
+                                        <div class="flex items-center justify-center p-2 bg-white rounded-md">
+                                            <p class="text-3xl font-black">
+                                                {{ $selectedSnowReport->base_snow ?? 0 }}<small
+                                                    class="text-xs">cm</small></p>
+                                        </div>
+                                        <p class="text-sm text-white">Χιόνι Βάσης</p>
+                                    </div>
+                                    <div class="flex flex-col space-y-2">
+                                        <div class="flex items-center justify-center p-2 bg-white rounded-md">
+                                            <p class="text-3xl font-black">
+                                                {{ $selectedSnowReport->mid_snow ?? 0 }}<small
+                                                    class="text-xs">cm</small></p>
+                                        </div>
+                                        <p class="text-sm text-white">Χιόνι Μέσης</p>
+                                    </div>
+                                    <div class="flex flex-col space-y-2">
+                                        <div class="flex items-center justify-center p-2 bg-white rounded-md">
+                                            <p class="text-3xl font-black">
+                                                {{ $selectedSnowReport->top_snow ?? 0 }}<small
+                                                    class="text-xs">cm</small></p>
+                                        </div>
+                                        <p class="text-sm text-white">Χιόνι Κορυφής</p>
+                                    </div>
+                                </div>
+
                                 @if ($selectedSnowReport?->getAttributes())
-                                    <div class="flex flex-col mb-12 space-y-2">
+                                    <div class="flex flex-col mt-8 mb-12 space-y-2">
                                         <x-ui.lists.activity-list :infoList="$selectedSnowReport->lifts ?? null" title="Αναβατήρες" />
                                     </div>
 
@@ -68,10 +96,12 @@
                         </div>
                     </div>
 
-                    <div class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+
+                    <div class="mt-5">
                         <button type="button" @click="open=false"
-                            class="inline-flex justify-center w-full px-3 py-2 mt-3 text-sm font-semibold text-gray-900 bg-white rounded-md shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0">Cancel</button>
+                            class="inline-flex justify-center w-full px-3 py-2 mt-5 text-sm font-semibold text-gray-900 bg-white rounded-md shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0">Πίσω</button>
                     </div>
+
                 </div>
             </div>
         </div>

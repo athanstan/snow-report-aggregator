@@ -49,11 +49,21 @@ class SnowReportInfoCrawlerObserver extends CrawlObserver
 
         $content1 = htmlspecialchars_decode($content, ENT_QUOTES);
         $content1 = mb_convert_encoding($content1, "UTF-8", "ISO-8859-7");
+
         $content2 = Str::between(
             $content1,
             '<div class="col-xs-12 col-sm-6 col-md-5 col-lg-6 resortInfo">',
             '<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 resortCams">'
         );
+
+        $snowContent = Str::betweenFirst(
+            $content1,
+            '<table border="0" cellpadding="0" cellspacing="0"  >',
+            '</table>'
+        );
+        $snowContent = Str::replace('</font>', ' ', $snowContent);
+        $snowContent = Str::replace('<br>', '</font>', $snowContent);
+
         $this->content = trim($content2);
 
         $utf8Content = mb_convert_encoding($this->content, 'HTML-ENTITIES', 'UTF-8');
@@ -110,6 +120,39 @@ class SnowReportInfoCrawlerObserver extends CrawlObserver
                 ]
             );
         });
+
+        $this->content = trim($snowContent);
+        $utf8Content = mb_convert_encoding($this->content, 'HTML-ENTITIES', 'UTF-8');
+
+        $crawler = new Crawler();
+        $crawler->addHtmlContent($utf8Content);
+
+        $snowHeights = [];
+        $crawler->filter('font[color="brown"]')->each(function (Crawler $node) use (&$snowHeights) {
+            // Extract the text content of the current node
+            $text = trim($node->text());
+
+            // Check if the node contains specific snow height information and extract it
+            if (strpos($text, 'Υψος χιον.βάσης:') !== false) {
+                if (preg_match('/\d+/', $text, $matches)) {
+                    $snowHeights['base_snow'] = $matches[0]; // First matching number
+                }
+            } elseif (strpos($text, 'Υψος χιον.μέσης:') !== false) {
+                if (preg_match('/\d+/', $text, $matches)) {
+                    $snowHeights['mid_snow'] = $matches[0]; // First matching number
+                }
+            } elseif (strpos($text, 'Υψος χιον.κορυφ:') !== false) {
+                if (preg_match('/\d+/', $text, $matches)) {
+                    $snowHeights['top_snow'] = $matches[0]; // First matching number
+                }
+            }
+        });
+
+        $this->snowreport->update([
+            'base_snow' => $snowHeights['base_snow'] ?? null,
+            'mid_snow' => $snowHeights['mid_snow'] ?? null,
+            'top_snow' => $snowHeights['top_snow'] ?? null,
+        ]);
     }
 
     /**

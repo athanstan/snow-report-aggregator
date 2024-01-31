@@ -17,6 +17,9 @@ class SnowReport extends Model
         'status',
         'open_lifts',
         'total_lifts',
+        'base_snow',
+        'mid_snow',
+        'top_snow',
         'updated_at'
     ];
 
