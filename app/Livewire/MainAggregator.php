@@ -19,15 +19,15 @@ class MainAggregator extends Component
     #[On('refresh')]
     public function mount()
     {
-        $this->snowReports = Cache::remember('snowReports', 3600, function () {
+        $this->snowReports = Cache::remember('snowReports', 1800, function () {
             return SnowReport::query()
                 ->orderBy('open_lifts', 'desc')
                 ->get();
         });
 
-        if ($this->snowReports->isEmpty() || $this->snowReports->first()->updated_at->diffInHours(now()) > 1) {
+        if ($this->snowReports->isEmpty() || $this->snowReports->first()->updated_at->diffInMinutes(now()) > 30) {
             $this->fetchContent();
-            cache()->forget('snowReports');
+            Cache::forget('snowReports');
         }
     }
 
