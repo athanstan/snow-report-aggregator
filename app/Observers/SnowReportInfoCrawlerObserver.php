@@ -128,6 +128,7 @@ class SnowReportInfoCrawlerObserver extends CrawlObserver
         $crawler->addHtmlContent($utf8Content);
 
         $snowHeights = [];
+
         $crawler->filter('font[color="brown"]')->each(function (Crawler $node) use (&$snowHeights) {
             // Extract the text content of the current node
             $text = trim($node->text());
@@ -145,6 +146,8 @@ class SnowReportInfoCrawlerObserver extends CrawlObserver
                 if (preg_match('/\d+/', $text, $matches)) {
                     $snowHeights['top_snow'] = $matches[0]; // First matching number
                 }
+            } elseif (strpos($text, 'Ποιότ.χιονιού:') !== false) {
+                $temp = Str::after($text, ': ');
             }
         });
 
