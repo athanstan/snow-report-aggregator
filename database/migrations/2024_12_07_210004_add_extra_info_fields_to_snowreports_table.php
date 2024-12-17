@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('snowreports', function (Blueprint $table) {
+        Schema::table('snow_reports', function (Blueprint $table) {
             $table->string('snow_quality')->nullable();
             $table->string('weather_conditions')->nullable();
             $table->string('google_maps')->nullable();
@@ -17,7 +17,7 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::table('snowreports', function (Blueprint $table) {
+        Schema::table('snow_reports', function (Blueprint $table) {
             $table->dropColumn('snow_quality');
             $table->dropColumn('weather_conditions');
             $table->dropColumn('google_maps');
