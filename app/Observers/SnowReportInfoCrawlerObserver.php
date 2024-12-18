@@ -136,18 +136,20 @@ class SnowReportInfoCrawlerObserver extends CrawlObserver
             // Check if the node contains specific snow height information and extract it
             if (strpos($text, 'Υψος χιον.βάσης:') !== false) {
                 if (preg_match('/\d+/', $text, $matches)) {
-                    $snowHeights['base_snow'] = $matches[0]; // First matching number
+                    $snowHeights['base_snow'] = $matches[0];
                 }
             } elseif (strpos($text, 'Υψος χιον.μέσης:') !== false) {
                 if (preg_match('/\d+/', $text, $matches)) {
-                    $snowHeights['mid_snow'] = $matches[0]; // First matching number
+                    $snowHeights['mid_snow'] = $matches[0];
                 }
             } elseif (strpos($text, 'Υψος χιον.κορυφ:') !== false) {
                 if (preg_match('/\d+/', $text, $matches)) {
-                    $snowHeights['top_snow'] = $matches[0]; // First matching number
+                    $snowHeights['top_snow'] = $matches[0];
                 }
             } elseif (strpos($text, 'Ποιότ.χιονιού:') !== false) {
-                $temp = Str::after($text, ': ');
+                $snowHeights['snow_quality'] = Str::after($text, ': ');
+            } elseif (strpos($text, 'Τελ.χιον/ση:') !== false) {
+                $snowHeights['last_snowfall'] = Str::after($text, ': ');
             }
         });
 
@@ -155,6 +157,8 @@ class SnowReportInfoCrawlerObserver extends CrawlObserver
             'base_snow' => $snowHeights['base_snow'] ?? null,
             'mid_snow' => $snowHeights['mid_snow'] ?? null,
             'top_snow' => $snowHeights['top_snow'] ?? null,
+            'snow_quality' => $snowHeights['snow_quality'] ?? null,
+            'last_snowfall' => $snowHeights['last_snowfall'] ?? null,
         ]);
     }
 

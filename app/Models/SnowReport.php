@@ -20,6 +20,8 @@ class SnowReport extends Model
         'base_snow',
         'mid_snow',
         'top_snow',
+        'snow_quality',
+        'last_snowfall',
         'updated_at'
     ];
 
