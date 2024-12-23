@@ -15,19 +15,24 @@ class MainAggregator extends Component
     public $snowReports;
     public SnowReport $selectedSnowReport;
     public bool $open = false;
+    public array $favouriteSnowReports = [];
 
     #[On('refresh')]
     public function mount()
     {
-        $this->snowReports = Cache::remember('snowReports', 1800, function () {
+        $cacheKey = 'snowReports' . implode($this->favouriteSnowReports);
+        $this->snowReports = Cache::remember($cacheKey, 1800, function () {
             return SnowReport::query()
+                ->when($this->favouriteSnowReports, function ($query) {
+                    $query->whereIn('id', $this->favouriteSnowReports);
+                })
                 ->orderBy('open_lifts', 'desc')
                 ->get();
         });
 
         if ($this->snowReports->isEmpty() || $this->snowReports->first()->updated_at->diffInMinutes(now()) > 30) {
             $this->fetchContent();
-            Cache::forget('snowReports');
+            Cache::forget($cacheKey);
         }
     }
 
@@ -67,11 +72,11 @@ class MainAggregator extends Component
             }
         );
 
+        Crawler::create()
+            ->setCrawlObserver(new SnowReportInfoCrawlerObserver($snowReport))
+            ->setMaximumDepth(0)
+            ->startCrawling($snowReport->link . '/', $snowReport->id);
         if ($this->selectedSnowReport->lifts->isEmpty() || $this->selectedSnowReport->lifts->first()->updated_at->diffInHours(now()) > 1) {
-            Crawler::create()
-                ->setCrawlObserver(new SnowReportInfoCrawlerObserver($snowReport))
-                ->setMaximumDepth(0)
-                ->startCrawling($snowReport->link . '/', $snowReport->id);
 
             cache()->forget('snowReport' . $snowReport->id);
         }

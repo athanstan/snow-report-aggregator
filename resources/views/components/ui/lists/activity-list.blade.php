@@ -28,7 +28,7 @@
                     class="flex-none py-0.5 text-xs leading-5 text-white">{{ $item->updated_at->diffForHumans(['short' => true]) }}</time>
             </li>
         @empty
-            <li>Δεν βρέθηκαν αναβατήρες</li>
+            <li class="text-white">Δεν βρέθηκαν {{ $title }}</li>
         @endforelse
     </ul>
 </div>
