@@ -19,4 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('data', MainDataController::class)->middleware('auth:sanctum');
+Route::resource('data', MainDataController::class)
+    ->except(['create', 'edit', 'store', 'update', 'destroy'])
+    ->middleware('auth:sanctum');
