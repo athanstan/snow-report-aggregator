@@ -88,10 +88,7 @@
                     <p class="pb-8 text-4xl font-bold tracking-tight text-center lg:text-5xl">
                         Διάλεξε Χιονοδρομικό 🏂
                     </p>
-
-                    <div class="h-screen overflow-auto">
-                        <livewire:main-aggregator />
-                    </div>
+                    <livewire:main-aggregator />
                     <div>
                         <livewire:snow-resort-data />
                     </div>
