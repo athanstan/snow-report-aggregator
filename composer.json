@@ -12,6 +12,7 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.3",
+        "saloonphp/saloon": "^3.10",
         "spatie/crawler": "^8.1"
     },
     "require-dev": {
