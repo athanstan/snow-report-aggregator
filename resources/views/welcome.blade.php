@@ -19,7 +19,8 @@
 
 <body class="antialiased" id="my-canvas">
     <div class="text-white">
-        <div style="background-image:
+        <div class="relative"
+            style="background-image:
         url(https://images.unsplash.com/photo-1590514845347-76125d976864?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80)"
             class="relative w-full pb-16 bg-top bg-cover md:bg-center">
             <div class="absolute inset-0 w-full h-full bg-gray-900 opacity-25"></div>
@@ -27,12 +28,12 @@
             <div class="relative flex items-center justify-between w-full h-20 pt-0 pb-0 pl-8 pr-8">
                 <a
                     class="relative flex items-center h-full pt-0 pb-0 pl-0 pr-6 text-lg font-extrabold text-white">snowgr.info</a>
-                <div
+                {{-- <div
                     class="flex flex-col items-center justify-center h-full space-y-3 md:justify-end md:bg-transparent md:space-x-5 md:space-y-0 md:relative md:flex md:flex-row">
                     <a
                         class="relative text-lg font-medium tracking-wide text-purple-400 transition duration-150 ease-out md:text-sm md:text-white">About
                         Us</a>
-                </div>
+                </div> --}}
             </div>
             <div class="relative z-10 max-w-6xl pt-10 pb-10 pl-10 pr-10 ml-auto mr-auto md:pt-20 md:pb-40">
                 <div class="flex flex-col items-center lg:flex-row">
@@ -49,24 +50,33 @@
                             <span class="animate-pulse shadow-* text-purple-300">Scrollαρε</span>
                             για περισσότερα!
                         </p>
-                        <p></p>
                     </div>
                     <div class="pt-5 pb-5 pl-4 pr-4 sm:p-6">
                         <div class="">
                             <p class="text-lg font-bold text-purple-200">Αγαπημένα μας Χιονοδρομικά</p>
                         </div>
-                        <div class="mt-6 mb-0 ml-0 mr-0 space-y-3">
+                        <div class="mt-6 mb-16 ml-0 mr-0 space-y-3 sm:mb-0">
                             <livewire:main-aggregator :favouriteSnowReports="[6, 10, 1, 2]" />
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="absolute bottom-0 sm:-bottom-2 left-0 w-full overflow-hidden leading-[0]">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                    <path fill="#0f1727" fill-opacity="1"
+                        d="M0,288L48,288C96,288,192,288,288,266.7C384,245,480,203,576,202.7C672,203,768,245,864,272C960,299,1056,309,1152,309.3C1248,309,1344,299,1392,293.3L1440,288L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+                    </path>
+                </svg>
+            </div>
         </div>
-        <main class="relative w-full bg-slate-900">
-            <section
+        <div class="relative w-full bg-slate-900">
+
+            <livewire:next-snowfall-list />
+
+            <div
                 class="relative flex flex-col items-center justify-center w-full min-h-screen px-4 py-8 mx-auto isolate max-w-screen-2xl gap-y-8 overflow-y-clip">
                 <div aria-hidden
-                    class="absolute inset-x-0 overflow-hidden sm:-top-80 -top-40 -z-10 transform-gpu blur-3xl">
+                    class="absolute inset-x-0 overflow-hidden sm:-top-24 top-10 -z-10 transform-gpu blur-3xl">
                     <div style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2%
               62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%,
               74.1% 44.1%);"
@@ -101,8 +111,8 @@
                         friendly
                         neighborhood Snowboarder | Coder</div>
                 </div>
-            </section>
-        </main>
+            </div>
+        </div>
     </div>
     @livewireScripts
 </body>
