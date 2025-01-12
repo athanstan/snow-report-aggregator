@@ -22,6 +22,9 @@ class SnowReport extends Model
         'top_snow',
         'snow_quality',
         'last_snowfall',
+        'longitude',
+        'latitude',
+        'altitude',
         'updated_at'
     ];
 
