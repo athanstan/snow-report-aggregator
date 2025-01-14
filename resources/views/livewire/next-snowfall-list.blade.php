@@ -39,23 +39,27 @@
                 <!-- Card Content -->
                 <div class="relative z-10">
                     <h3 class="text-lg font-bold text-white">{{ $snowresort['name'] }}</h3>
-                    <div class="relative flex space-x-2">
-                        <p class="text-[13px] font-medium text-white">
-                            {{ $snowresort['snowfall'] }}
-                        </p>
-                        <div class="flex">
-                            <x-svg class="w-4 h-auto" svg="snowflake" />
+                    @if ($snowresort['nextSnowfall'] !== null)
+                        <div class="relative flex space-x-2">
+                            <p class="text-[13px] font-medium text-white">
+                                {{ $snowresort['snowfall'] }}
+                            </p>
+                            <div class="flex">
+                                <x-svg class="w-4 h-auto" svg="snowflake" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="relative flex space-x-2">
-                        <p class="text-[13px] font-medium text-white ">
-                            {{ $snowresort['heavySnowfall'] }}
-                        </p>
-                        <div class="flex">
-                            <x-svg class="w-4 h-auto" svg="snowflake" />
-                            <x-svg class="w-4 h-auto" svg="snowflake" />
+                    @endif
+                    @if ($snowresort['heavySnowfall'] !== null)
+                        <div class="relative flex space-x-2">
+                            <p class="text-[13px] font-medium text-white ">
+                                {{ $snowresort['heavySnowfall'] }}
+                            </p>
+                            <div class="flex">
+                                <x-svg class="w-4 h-auto" svg="snowflake" />
+                                <x-svg class="w-4 h-auto" svg="snowflake" />
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         @empty
