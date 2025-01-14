@@ -39,7 +39,7 @@
                 <!-- Card Content -->
                 <div class="relative z-10">
                     <h3 class="text-lg font-bold text-white">{{ $snowresort['name'] }}</h3>
-                    @if ($snowresort['nextSnowfall'] !== null)
+                    @if ($snowresort['snowfall'] !== null)
                         <div class="relative flex space-x-2">
                             <p class="text-[13px] font-medium text-white">
                                 {{ $snowresort['snowfall'] }}
