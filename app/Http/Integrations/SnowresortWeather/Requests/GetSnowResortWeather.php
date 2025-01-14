@@ -56,7 +56,7 @@ final class GetSnowResortWeather extends Request implements Cacheable
 
     public function cacheExpiryInSeconds(): int
     {
-        return 60 * 60 * 24;
+        return 60 * 60 * 12;
     }
 
     public function cacheKey(): string

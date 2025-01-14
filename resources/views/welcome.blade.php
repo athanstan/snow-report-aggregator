@@ -155,7 +155,7 @@
                 shapes: ["image"],
                 shapeOptions: {
                     image: [{
-                        src: "http://snow-report-aggregator.test/assets/snowflake.svg",
+                        src: "{{ asset('assets/snowflake.svg') }}",
                         width: 20,
                         height: 20
                     }, ],
