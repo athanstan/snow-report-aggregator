@@ -27,7 +27,7 @@
             <div class="absolute inset-0 w-full h-64 opacity-50 bg-gradient-to-b from-black to-transparent"></div>
             <div class="relative flex items-center justify-between w-full h-20 pt-0 pb-0 pl-8 pr-8">
                 <a
-                    class="relative flex items-center h-full pt-0 pb-0 pl-0 pr-6 text-lg font-extrabold text-white">snowgr.info</a>
+                    class="relative flex items-center h-full pt-0 pb-0 pl-0 pr-6 text-lg font-extrabold text-white">pamexionia</a>
                 {{-- <div
                     class="flex flex-col items-center justify-center h-full space-y-3 md:justify-end md:bg-transparent md:space-x-5 md:space-y-0 md:relative md:flex md:flex-row">
                     <a
